@@ -79,23 +79,33 @@ def run(url=None, presetFilters=None, startprice=None, testing = False, testingL
             numPages = 2
         else:
             numPages = 24
-
+        captchaCount = 0
 
         for i in range(1, numPages):  # times out after 25th page, so loop with new price
+
             if end is True:
                 break
             try:
                 time.sleep(12)
                 url = decoder.generate_url(integrate_filters, i)
                 r = requests.get(url=url, headers=req_headers1)
-                #try:
-                data = json.loads(r.text)
-                #print(r.text[:2000])
-                #except:
-                    #break
+                try:
+                    data = json.loads(r.text)
+
+                except:
+                    print(r.text[:2000])
+                    captchaCount +=1
+                    if captchaCount > 3:
+                        break
+                    break
                 listings = data['cat1']['searchResults']['listResults']
                 for card in listings:
-                    current_price = card['unformattedPrice']
+                    if card['unformattedPrice'] is not None:
+                        current_price = card['unformattedPrice']
+                    else:
+                        continue
+
+
 
                     card['utcDateTime'] = str(datetime.utcnow())
                     if len(localStorage) > 5:

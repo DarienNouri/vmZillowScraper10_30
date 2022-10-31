@@ -42,8 +42,8 @@ def main(url=None, startprice=None,all=None, test1 = False, test40 = False, test
             ##run_scrape.saveCSV(payload, saveName)
             print("letsgooobaby")
 
-
+#1 24 5 0 23 16 14
 
 #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
 if __name__ == "__main__":
-    main(all=False, test40=False, testing960=True)
+    main(all=False, test40=False, testing960=False)
