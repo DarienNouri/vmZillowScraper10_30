@@ -131,7 +131,7 @@ def run(url=None, presetFilters=None, startprice=None, testing = False, testingL
         integrate_filters = decoder.set_url_filters(update_link)
         if testing is True:
             break
-        if testingLarge is True and count == 6:
+        if testingLarge is True and count == 4:
             break
     print("Number of Listings Scraped: ", len(localStorage))
     print(time.time() - start_time)

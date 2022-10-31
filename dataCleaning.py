@@ -9,7 +9,25 @@ import numpy as np
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
-driver = 'ODBC Driver 18 for SQL Server'
+'''
+
+get sql connection string parameters
+
+'''
+
+driver_name = ''
+driver_names = [x for x in pyodbc.drivers() if x.endswith(' for SQL Server')]
+if driver_names:
+    driver_name = driver_names[0]
+if driver_name:
+    conn_str = 'DRIVER={}; ...'.format(driver_name)
+    # then continue with ...
+    # pyodbc.connect(conn_str)
+    # ... etc.
+else:
+    print('(No suitable driver found. Cannot connect.)')
+#driver = 'ODBC Driver 18 for SQL Server'
+driver = driver_name
 driver2 = '{SQL Server Native Client 11.0}'
 server = 'tcp:zillow-db.database.windows.net'
 database = 'zillow'
@@ -65,6 +83,7 @@ def transformData(data):
 
 
 def saveToSQL(df):
+
     params = urllib.parse.quote_plus(
         'DRIVER={' + driver + '};Server=' + server + ';Database=' + database + ';Port=1433;uid=' + username + ';Pwd=' + password)
     engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}', fast_executemany=True)
