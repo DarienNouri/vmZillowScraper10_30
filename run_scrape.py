@@ -94,6 +94,7 @@ def run(url=None, presetFilters=None, startprice=None, testing = False, testingL
 
                 except:
                     print(r.text[:2000])
+                    time.sleep(500)
                     captchaCount +=1
                     if captchaCount > 3:
                         break

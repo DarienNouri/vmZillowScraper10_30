@@ -12,7 +12,7 @@ def main(url=None, startprice=None,all=None, test1 = False, test40 = False, test
         count = 0
         for loc in allLoc:
             count += 1
-            if count < 9:
+            if count < 2:
                continue
             print('Current Location:', allLoc[loc][0][0])
             payload = run(presetFilters=allLoc[loc][0][1], testing=test40, testingLarge= testing960)
@@ -46,4 +46,4 @@ def main(url=None, startprice=None,all=None, test1 = False, test40 = False, test
 
 #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
 if __name__ == "__main__":
-    main(all=False, test40=False, testing960=False)
+    main(all=True, test40=False, testing960=False)
